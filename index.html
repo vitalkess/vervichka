@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Вервичка — Каблучка-оберіг</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFFFFF;
+      --gold: #B8914A;
+      --gold-light: #D4AF6E;
+      --gold-pale: #F0E6D0;
+      --charcoal: #2A2520;
+      --text-mid: #5C5248;
+      --text-light: #9C8E82;
+      --silver: #8C8C99;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15) 0%,
+        rgba(0,0,0,0) 35%,
+        rgba(20,15,10,0.45) 70%,
+        rgba(20,15,10,0.75) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 28px 44px;
+      color: white;
+    }
+
+    .hero-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 46px;
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.75);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 18px;
+      margin-top: -6px;
+    }
+    .scroll-hint span {
+      display: block;
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ── POETIC SECTION ── */
+    .poetic {
+      background: var(--warm-white);
+      padding: 52px 32px 48px;
+      text-align: center;
+    }
+
+    .cross-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .cross-divider::before,
+    .cross-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-light));
+    }
+    .cross-divider::after {
+      background: linear-gradient(to left, transparent, var(--gold-light));
+    }
+    .cross-icon {
+      color: var(--gold);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .poetic-phrase {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+
+    .poetic-phrase span {
+      color: var(--gold);
+    }
+
+    .poetic-tagline {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+      line-height: 1.7;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-section {
+      padding: 8px 0 0;
+      background: var(--cream);
+    }
+
+    .gallery-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 24px 24px;
+      scrollbar-width: none;
+    }
+    .gallery-scroll::-webkit-scrollbar { display: none; }
+
+    .gallery-item {
+      flex: 0 0 auto;
+      width: 72vw;
+      max-width: 300px;
+      scroll-snap-align: start;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 0 32px;
+    }
+    .gallery-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      opacity: 0.35;
+    }
+    .gallery-dots span:first-child { opacity: 1; }
+
+    /* ── DETAILS BLOCK ── */
+    .details-section {
+      background: var(--warm-white);
+      padding: 44px 28px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 28px;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .spec-card {
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 18px 16px;
+    }
+
+    .spec-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
+
+    .spec-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    /* ── PRAYER BLOCK ── */
+    .prayer-block {
+      background: linear-gradient(135deg, #2A2520 0%, #3D3028 100%);
+      margin: 0 -28px;
+      padding: 36px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prayer-block::before {
+      content: '✝';
+      position: absolute;
+      font-size: 180px;
+      color: rgba(255,255,255,0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .prayer-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.8;
+      position: relative;
+    }
+
+    .prayer-text strong {
+      display: block;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+
+    /* ── PRICE / CTA ── */
+    .cta-section {
+      background: var(--warm-white);
+      padding: 44px 28px 48px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 400;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .price-currency {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      color: var(--text-mid);
+    }
+
+    .price-note {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .price-note::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #5CB85C;
+      flex-shrink: 0;
+    }
+
+    .btn-order {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #B8914A 0%, #D4AF6E 50%, #B8914A 100%);
+      background-size: 200% 100%;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-position 0.4s ease, transform 0.15s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 24px rgba(184,145,74,0.35);
+      margin-bottom: 14px;
+    }
+
+    .btn-order:hover, .btn-order:active {
+      background-position: 100% 0;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 32px rgba(184,145,74,0.45);
+    }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--cream);
+      padding: 32px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .trust-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .trust-text {
+      font-size: 11px;
+      color: var(--text-mid);
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    /* ── PRODUCT HERO IMAGE (wide) ── */
+    .product-hero-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 11px;
+      line-height: 1.7;
+      letter-spacing: 0.05em;
+    }
+
+    footer strong {
+      display: block;
+      color: rgba(255,255,255,0.8);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    /* ── STICKY CTA ── */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 12px 24px 20px;
+      border-top: 1px solid rgba(184,145,74,0.2);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.08);
+    }
+
+    .sticky-price {
+      flex-shrink: 0;
+    }
+
+    .sticky-price .amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+
+    .sticky-price .label {
+      font-size: 10px;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+    }
+
+    .sticky-bar .btn-order {
+      flex: 1;
+      margin: 0;
+      padding: 14px;
+      font-size: 13px;
+    }
+
+    /* hide sticky on large screens / desktop */
+    @media (min-width: 600px) {
+      body { box-shadow: 0 0 60px rgba(0,0,0,0.12); }
+    }
+
+    /* ── FORM ── */
+    .form-section {
+      background: var(--cream);
+      padding: 48px 28px 52px;
+    }
+
+    .form-section .section-label { margin-bottom: 8px; }
+    .form-section .section-title { font-size: 26px; margin-bottom: 6px; }
+
+    .form-desc {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .form-group { margin-bottom: 14px; }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      margin-bottom: 7px;
+    }
+
+    .form-group input {
+      display: block;
+      width: 100%;
+      padding: 15px 18px;
+      background: var(--warm-white);
+      border: 1.5px solid rgba(42,37,32,0.12);
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-group input::placeholder { color: var(--text-light); font-size: 15px; }
+
+    .form-group input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,145,74,0.12);
+    }
+
+    .form-submit {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #B8914A 0%, #D4AF6E 50%, #B8914A 100%);
+      background-size: 200% 100%;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 22px;
+      box-shadow: 0 8px 24px rgba(184,145,74,0.35);
+      transition: transform 0.15s ease, box-shadow 0.3s ease;
+    }
+
+    .form-submit:active { transform: translateY(-1px); }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 24px 0 8px;
+    }
+
+    .form-success .success-icon { font-size: 44px; margin-bottom: 14px; }
+
+    .form-success p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-style: italic;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    .form-success small { font-size: 13px; color: var(--text-light); }
+  </style>
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','2006373556754676');
+    fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2006373556754676&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+
+  <!-- ════ HERO ════ -->
+  <section class="hero">
+    <img class="hero-img"
+         src="зроби_мені_таке_202603262229.png"
+         alt="Каблучка-оберіг Вервичка на руці" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Каблучка-оберіг</p>
+      <h1 class="hero-title">
+        <em>Вервичка</em>
+      </h1>
+      <p class="hero-subtitle">
+        Молитва, яку можна носити на пальці
+      </p>
+    </div>
+    <div class="scroll-hint"><span></span></div>
+  </section>
+
+  <!-- ════ POETIC ════ -->
+  <section class="poetic">
+    <div class="cross-divider"><span class="cross-icon">✝</span></div>
+
+    <p class="poetic-phrase">
+      Не просто каблучка.<br/>
+      <span>Символ віри.</span><br/>
+      Захист на кожен день.
+    </p>
+
+    <p class="poetic-tagline">
+      Кожна намистинка — тихий шепіт до неба.<br/>
+      Кожне кільце — захист від серця до серця.<br/><br/>
+      Для тих, хто вірить і любить.
+    </p>
+  </section>
+
+  <!-- ════ GALLERY ════ -->
+  <section class="gallery-section">
+    <div class="gallery-scroll" id="gallery">
+      <div class="gallery-item">
+        <img src="зроби_мені_таке_202603262253 (1).png" alt="Каблучка Вервичка на білому шовку" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="IMG_4370 2.jpg" alt="Каблучка Вервичка на пальці" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="IMG_4365.jpg" alt="Каблучка в коробочці серці" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="IMG_4368 2.jpg" alt="Каблучка Вервичка деталь" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="IMG_4369.jpg" alt="Каблучка Вервичка вид зверху" loading="lazy" />
+      </div>
+    </div>
+    <div class="gallery-dots">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+
+  <!-- ════ DETAILS ════ -->
+  <section class="details-section">
+    <p class="section-label">Характеристики</p>
+    <h2 class="section-title">Срібна каблучка<br/>з золотою напайкою</h2>
+
+    <div class="specs-grid">
+      <div class="spec-card">
+        <p class="spec-label">Метал</p>
+        <p class="spec-value">Срібло 925°</p>
+      </div>
+      <div class="spec-card">
+        <p class="spec-label">Вставка</p>
+        <p class="spec-value">Золото 375°</p>
+      </div>
+      <div class="spec-card">
+        <p class="spec-label">Вага</p>
+        <p class="spec-value">1,34 г</p>
+      </div>
+      <div class="spec-card">
+        <p class="spec-label">Оплата</p>
+        <p class="spec-value">При отриманні</p>
+      </div>
+    </div>
+
+    <!-- Prayer dark block -->
+    <div class="prayer-block">
+      <p class="prayer-text">
+        <strong>Подарунок, який залишається назавжди</strong>
+        «Носи мене близько до серця.<br/>
+        Я буду молитись разом з тобою<br/>
+        у кожну мить твого дня.»
+      </p>
+    </div>
+  </section>
+
+  <!-- ════ WIDE PRODUCT IMAGE ════ -->
+  <img class="product-hero-img"
+       src="Снимок экрана 2026-03-24 в 23.58.11.png"
+       alt="Каблучка-оберіг Вервичка — вид збоку"
+       loading="lazy" />
+
+  <!-- ════ PRICE / CTA ════ -->
+  <section class="cta-section">
+    <div class="price-row">
+      <span class="price">1750</span>
+      <span class="price-currency">грн</span>
+    </div>
+    <p class="price-note">Оплата при отриманні — без ризику</p>
+
+    <a href="#orderForm" class="btn-order">
+      Замовити зараз
+    </a>
+  </section>
+
+  <!-- ════ TRUST ════ -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <p class="trust-text">Срібло<br/>925 проба</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">📦</div>
+      <p class="trust-text">Оплата<br/>при отриманні</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🎁</div>
+      <p class="trust-text">У подарунковій<br/>упаковці</p>
+    </div>
+  </div>
+
+  <!-- ════ FORM ════ -->
+  <section class="form-section">
+    <p class="section-label">Залишити заявку</p>
+    <h2 class="section-title">Замовити<br/>каблучку</h2>
+    <p class="form-desc">Заповніть форму — ми зв'яжемось з вами<br/>та підтвердимо замовлення.</p>
+
+    <form id="orderForm">
+      <div class="form-group">
+        <label for="fname">Ваше ім'я</label>
+        <input type="text" id="fname" name="name" placeholder="Наприклад, Марія" autocomplete="given-name" />
+      </div>
+      <div class="form-group">
+        <label for="fphone">Номер телефону</label>
+        <input type="tel" id="fphone" name="phone" placeholder="+380 __  ___  ____" autocomplete="tel" inputmode="tel" />
+      </div>
+      <button type="submit" class="form-submit">Замовити</button>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">✝️</div>
+      <p>Дякуємо, {{name}}!</p>
+      <small>Ми зателефонуємо вам найближчим часом.</small>
+    </div>
+  </section>
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <strong>Вервичка</strong>
+    Каблучка-оберіг · Срібло &amp; Золото<br/>
+    Арт. 580
+  </footer>
+
+  <!-- ════ STICKY BAR ════ -->
+  <div class="sticky-bar">
+    <div class="sticky-price">
+      <div class="amount">1750 грн</div>
+      <div class="label">Оплата при отриманні</div>
+    </div>
+    <a href="#orderForm" class="btn-order">Замовити</a>
+  </div>
+
+  <!-- ── Form ── -->
+  <script>
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const name  = document.getElementById('fname').value.trim();
+      const phone = document.getElementById('fphone').value.trim();
+      const text  = `📦 Нова заявка!\n👤 Ім'я: ${name || '—'}\n📞 Телефон: ${phone || '—'}`;
+      try {
+        await fetch('https://api.telegram.org/bot8799549823:AAF0xC-y-HdjWoyeoFml72MEh-7KIhx8EVk/sendMessage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: 5071692828, text })
+        });
+      } catch (_) {}
+      window.location.href = 'thank-you.html';
+    });
+  </script>
+
+  <!-- ── Gallery dots sync ── -->
+  <script>
+    const scroll = document.getElementById('gallery');
+    const dots = document.querySelectorAll('.gallery-dots span');
+
+    scroll.addEventListener('scroll', () => {
+      const idx = Math.round(scroll.scrollLeft / (scroll.scrollWidth / dots.length));
+      dots.forEach((d, i) => d.style.opacity = i === idx ? '1' : '0.35');
+    });
+  </script>
+
+</body>
+</html>
