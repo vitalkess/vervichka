@@ -781,18 +781,61 @@
 
   <!-- ── Form ── -->
   <script>
+    // Зберігаємо UTM з URL в sessionStorage
+    (function() {
+      const p = new URLSearchParams(window.location.search);
+      ['utm_source','utm_medium','utm_term','utm_content','utm_campaign'].forEach(function(k) {
+        if (p.get(k)) sessionStorage.setItem(k, p.get(k));
+      });
+    })();
+
     document.getElementById('orderForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const name  = document.getElementById('fname').value.trim();
       const phone = document.getElementById('fphone').value.trim();
-      const text  = `📦 Нова заявка!\n👤 Ім'я: ${name || '—'}\n📞 Телефон: ${phone || '—'}`;
+
+      // Генеруємо order_id (11 цифр)
+      const orderId = String(Math.floor(Date.now() / 100));
+
+      // UTM з sessionStorage
+      const utm = {};
+      ['utm_source','utm_medium','utm_term','utm_content','utm_campaign'].forEach(function(k) {
+        utm[k] = sessionStorage.getItem(k) || '';
+      });
+
+      // PHP-serialized масив товарів
+      const products = encodeURIComponent('a:1:{i:0;a:3:{s:10:"product_id";s:1:"5";s:5:"price";s:4:"1750";s:5:"count";s:1:"1";}}');
+
+      // 1. Telegram
+      const tgText = `📦 Нова заявка!\n👤 Ім'я: ${name || '—'}\n📞 Телефон: ${phone || '—'}${utm.utm_source ? '\n📡 Джерело: ' + utm.utm_source : ''}`;
       try {
         await fetch('https://api.telegram.org/bot8799549823:AAF0xC-y-HdjWoyeoFml72MEh-7KIhx8EVk/sendMessage', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: 5071692828, text })
+          body: JSON.stringify({ chat_id: 5071692828, text: tgText })
         });
       } catch (_) {}
+
+      // 2. CRM
+      const fd = new FormData();
+      fd.append('key',          '8e884f7434e5383358d6ef5c5174492a');
+      fd.append('order_id',     orderId);
+      fd.append('country',      'UA');
+      fd.append('products',     products);
+      fd.append('bayer_name',   name);
+      fd.append('phone',        phone);
+      fd.append('utm_source',   utm.utm_source);
+      fd.append('utm_medium',   utm.utm_medium);
+      fd.append('utm_term',     utm.utm_term);
+      fd.append('utm_content',  utm.utm_content);
+      fd.append('utm_campaign', utm.utm_campaign);
+      try {
+        await fetch('http://thischin.lp-crm.biz/api/addNewOrder.html', {
+          method: 'POST',
+          body: fd
+        });
+      } catch (_) {}
+
       window.location.href = 'thank-you.html';
     });
   </script>
