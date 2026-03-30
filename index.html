@@ -831,7 +831,7 @@
       fd.append('utm_campaign', utm.utm_campaign);
       try {
         await fetch('http://thischin.lp-crm.biz/api/addNewOrder.html', {
-          method: 'POST', body: fd
+          method: 'POST', body: fd, mode: 'no-cors'
         });
       } catch (_) {}
 
