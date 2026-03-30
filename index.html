@@ -816,9 +816,13 @@
         });
       } catch (_) {}
 
-      // 2. CRM через PHP-проксі (без CORS/mixed-content проблем)
+      // 2. CRM напряму
       const fd = new FormData();
-      fd.append('name',         name);
+      fd.append('key',          '8e884f7434e5383358d6ef5c5174492a');
+      fd.append('order_id',     orderId);
+      fd.append('country',      'UA');
+      fd.append('products',     products);
+      fd.append('bayer_name',   name);
       fd.append('phone',        phone);
       fd.append('utm_source',   utm.utm_source);
       fd.append('utm_medium',   utm.utm_medium);
@@ -826,7 +830,9 @@
       fd.append('utm_content',  utm.utm_content);
       fd.append('utm_campaign', utm.utm_campaign);
       try {
-        await fetch('submit.php', { method: 'POST', body: fd });
+        await fetch('http://thischin.lp-crm.biz/api/addNewOrder.html', {
+          method: 'POST', body: fd
+        });
       } catch (_) {}
 
       window.location.href = 'thank-you.html';
