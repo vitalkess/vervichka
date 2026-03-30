@@ -789,6 +789,13 @@
       });
     })();
 
+    // Скидаємо підсвітку помилки при введенні
+    ['fname','fphone'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', function() {
+        this.style.borderColor = '';
+      });
+    });
+
     // Отримуємо IP користувача
     var userIp = '';
     fetch('https://api.ipify.org?format=json')
@@ -800,6 +807,17 @@
       e.preventDefault();
       const name  = document.getElementById('fname').value.trim();
       const phone = document.getElementById('fphone').value.trim();
+
+      if (!name) {
+        document.getElementById('fname').focus();
+        document.getElementById('fname').style.borderColor = '#E05252';
+        return;
+      }
+      if (!phone || phone.replace(/\D/g,'').length < 9) {
+        document.getElementById('fphone').focus();
+        document.getElementById('fphone').style.borderColor = '#E05252';
+        return;
+      }
 
       // Генеруємо order_id (11 цифр)
       const orderId = String(Math.floor(Date.now() / 100));
