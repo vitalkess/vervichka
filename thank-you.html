@@ -31,8 +31,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 48px 32px;
+      padding: 56px 32px 64px;
       text-align: center;
     }
 
@@ -136,12 +135,101 @@
 
     .btn-back:active { transform: translateY(-1px); }
 
+    .size-block {
+      background: var(--warm-white);
+      border-radius: 18px;
+      padding: 28px 24px;
+      width: 100%;
+      margin-bottom: 24px;
+      text-align: left;
+      animation: fadeIn 0.8s ease 0.65s both;
+    }
+
+    .size-block .block-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 6px;
+      display: block;
+      text-align: center;
+    }
+
+    .size-block .block-hint {
+      font-size: 13px;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .size-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .size-steps li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold-pale);
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.6;
+      padding-top: 4px;
+    }
+
+    .size-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .size-table th {
+      background: var(--gold-pale);
+      color: var(--gold);
+      font-weight: 500;
+      padding: 8px 10px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .size-table td {
+      padding: 8px 10px;
+      text-align: center;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--cream);
+    }
+
+    .size-table tr:last-child td { border-bottom: none; }
+
     .footer-note {
       margin-top: 32px;
       font-size: 11px;
       color: var(--text-light);
       letter-spacing: 0.05em;
-      animation: fadeIn 0.8s ease 0.7s both;
+      animation: fadeIn 0.8s ease 0.8s both;
     }
 
     @keyframes fadeIn {
@@ -175,6 +263,54 @@
   <div class="info-block">
     <strong>Що далі?</strong>
     <p>Ми зателефонуємо вам найближчим часом, щоб підтвердити замовлення та уточнити деталі доставки.</p>
+  </div>
+
+  <!-- Інструкція з вимірювання розміру -->
+  <div class="size-block">
+    <span class="block-title">📏 Як виміряти розмір?</span>
+    <p class="block-hint">Поки ми вам телефонуємо — підготуйте розмір каблучки</p>
+
+    <ul class="size-steps">
+      <li>
+        <span class="step-num">1</span>
+        <span class="step-text">Візьміть нитку або вузьку смужку паперу та оберніть навколо пальця, на який плануєте носити каблучку.</span>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <span class="step-text">Відмітьте місце перетину та виміряйте довжину лінійкою — це ваша <strong>довжина кола</strong> в мм.</span>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <span class="step-text">Розділіть отримане число на 3,14 — це ваш <strong>діаметр</strong>. Знайдіть його в таблиці нижче.</span>
+      </li>
+      <li>
+        <span class="step-num">💡</span>
+        <span class="step-text">Вимірювання краще робити ввечері — вдень пальці можуть бути трохи меншими.</span>
+      </li>
+    </ul>
+
+    <table class="size-table">
+      <thead>
+        <tr>
+          <th>Розмір</th>
+          <th>Діаметр (мм)</th>
+          <th>Коло (мм)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>15</td><td>15,0</td><td>47,1</td></tr>
+        <tr><td>15,5</td><td>15,5</td><td>48,7</td></tr>
+        <tr><td>16</td><td>16,0</td><td>50,3</td></tr>
+        <tr><td>16,5</td><td>16,5</td><td>51,8</td></tr>
+        <tr><td>17</td><td>17,0</td><td>53,4</td></tr>
+        <tr><td>17,5</td><td>17,5</td><td>55,0</td></tr>
+        <tr><td>18</td><td>18,0</td><td>56,5</td></tr>
+        <tr><td>18,5</td><td>18,5</td><td>58,1</td></tr>
+        <tr><td>19</td><td>19,0</td><td>59,7</td></tr>
+        <tr><td>19,5</td><td>19,5</td><td>61,3</td></tr>
+        <tr><td>20</td><td>20,0</td><td>62,8</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <a href="index.html" class="btn-back">Повернутись на головну</a>
