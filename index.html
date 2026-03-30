@@ -816,22 +816,18 @@
         });
       } catch (_) {}
 
-      // 2. CRM напряму
-      const fd = new FormData();
-      fd.append('key',          '8e884f7434e5383358d6ef5c5174492a');
-      fd.append('order_id',     orderId);
-      fd.append('country',      'UA');
-      fd.append('products',     products);
-      fd.append('bayer_name',   name);
-      fd.append('phone',        phone);
-      fd.append('utm_source',   utm.utm_source);
-      fd.append('utm_medium',   utm.utm_medium);
-      fd.append('utm_term',     utm.utm_term);
-      fd.append('utm_content',  utm.utm_content);
-      fd.append('utm_campaign', utm.utm_campaign);
+      // 2. CRM через Tilda Webhook
+      const crmFd = new FormData();
+      crmFd.append('Name',         name);
+      crmFd.append('Phone',        phone);
+      crmFd.append('utm_source',   utm.utm_source);
+      crmFd.append('utm_medium',   utm.utm_medium);
+      crmFd.append('utm_term',     utm.utm_term);
+      crmFd.append('utm_content',  utm.utm_content);
+      crmFd.append('utm_campaign', utm.utm_campaign);
       try {
-        await fetch('http://thischin.lp-crm.biz/api/addNewOrder.html', {
-          method: 'POST', body: fd, mode: 'no-cors'
+        await fetch('https://ssl.lp-crm.biz/api/tilda.php?subdomain=thischin.lp-crm.biz&token_key=8e884f7434e5383358d6ef5c5174492a&user_email=fiorinijewelry@gmail.com', {
+          method: 'POST', body: crmFd, mode: 'no-cors'
         });
       } catch (_) {}
 
