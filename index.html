@@ -789,6 +789,13 @@
       });
     })();
 
+    // Отримуємо IP користувача
+    var userIp = '';
+    fetch('https://api.ipify.org?format=json')
+      .then(r => r.json())
+      .then(d => { userIp = d.ip; })
+      .catch(function() {});
+
     document.getElementById('orderForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const name  = document.getElementById('fname').value.trim();
@@ -820,6 +827,10 @@
       const crmFd = new FormData();
       crmFd.append('Name',         name);
       crmFd.append('Phone',        phone);
+      crmFd.append('price',        '1750');
+      crmFd.append('id',           '5');
+      crmFd.append('country',      'UA');
+      crmFd.append('user_ip',      userIp);
       crmFd.append('utm_source',   utm.utm_source);
       crmFd.append('utm_medium',   utm.utm_medium);
       crmFd.append('utm_term',     utm.utm_term);
