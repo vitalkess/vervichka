@@ -797,12 +797,6 @@
     });
 
     // Отримуємо IP користувача
-    var userIp = '';
-    fetch('https://api.ipify.org?format=json')
-      .then(r => r.json())
-      .then(d => { userIp = d.ip; })
-      .catch(function() {});
-
     document.getElementById('orderForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const name  = document.getElementById('fname').value.trim();
@@ -819,44 +813,13 @@
         return;
       }
 
-      // Генеруємо order_id (11 цифр)
-      const orderId = String(Math.floor(Date.now() / 100));
-
-      // UTM з sessionStorage
-      const utm = {};
-      ['utm_source','utm_medium','utm_term','utm_content','utm_campaign'].forEach(function(k) {
-        utm[k] = sessionStorage.getItem(k) || '';
-      });
-
-      // PHP-serialized масив товарів
-      const products = encodeURIComponent('a:1:{i:0;a:3:{s:10:"product_id";s:1:"5";s:5:"price";s:4:"1750";s:5:"count";s:1:"1";}}');
-
-      // 1. Telegram
-      const tgText = `📦 Нова заявка!\n👤 Ім'я: ${name || '—'}\n📞 Телефон: ${phone || '—'}${utm.utm_source ? '\n📡 Джерело: ' + utm.utm_source : ''}`;
+      // Telegram
+      const tgText = `📦 Нова заявка!\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
       try {
         await fetch('https://api.telegram.org/bot8799549823:AAF0xC-y-HdjWoyeoFml72MEh-7KIhx8EVk/sendMessage', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ chat_id: 5071692828, text: tgText })
-        });
-      } catch (_) {}
-
-      // 2. CRM через Tilda Webhook
-      const crmFd = new FormData();
-      crmFd.append('Name',         name);
-      crmFd.append('Phone',        phone);
-      crmFd.append('price',        '1750');
-      crmFd.append('id',           '5');
-      crmFd.append('country',      'UA');
-      crmFd.append('user_ip',      userIp);
-      crmFd.append('utm_source',   utm.utm_source);
-      crmFd.append('utm_medium',   utm.utm_medium);
-      crmFd.append('utm_term',     utm.utm_term);
-      crmFd.append('utm_content',  utm.utm_content);
-      crmFd.append('utm_campaign', utm.utm_campaign);
-      try {
-        await fetch('https://ssl.lp-crm.biz/api/tilda.php?subdomain=thischin.lp-crm.biz&token_key=8e884f7434e5383358d6ef5c5174492a&user_email=fiorinijewelry@gmail.com', {
-          method: 'POST', body: crmFd, mode: 'no-cors'
         });
       } catch (_) {}
 
